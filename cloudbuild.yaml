@@ -1,0 +1,25 @@
+steps:
+- id: 'Build mock-1'
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-1
+  - --cache=true
+  - --dockerfile=mock-service-1/Dockerfile
+- id: 'Build mock-2'
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-2
+  - --cache=true
+  - --dockerfile=mock-service-2/Dockerfile
+- id: 'Build mock-3'
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-3
+  - --cache=true
+  - --dockerfile=mock-service-3/Dockerfile
+- id: 'Build mock-4'
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-4
+  - --cache=true
+  - --dockerfile=mock-service-4/Dockerfile
