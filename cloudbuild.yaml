@@ -7,18 +7,21 @@ steps:
   - --cache=true
   - --dockerfile=/workspace/mock-service-1/app/Dockerfile
 - id: 'Build mock-2'
+  waitFor: ['-']
   name: 'gcr.io/kaniko-project/executor:latest'
   args:
   - --destination=gcr.io/$PROJECT_ID/mock-service-2
   - --cache=true
   - --dockerfile=/workspace/mock-service-2/app/Dockerfile
 - id: 'Build mock-3'
+  waitFor: ['-']
   name: 'gcr.io/kaniko-project/executor:latest'
   args:
   - --destination=gcr.io/$PROJECT_ID/mock-service-3
   - --cache=true
   - --dockerfile=/workspace/mock-service-3/app/Dockerfile
 - id: 'Build mock-4'
+  waitFor: ['-']
   name: 'gcr.io/kaniko-project/executor:latest'
   args:
   - --destination=gcr.io/$PROJECT_ID/mock-service-4
