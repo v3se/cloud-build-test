@@ -19,7 +19,9 @@ changed_versions=()
  do
    if [[ $file == *"VERSION"* ]]; then
      changed_versions+=("$file")
-     echo `git diff $file`
+     echo "----------------------------------------------"
+     echo "Changed version: "
+     git --no-pager diff --word-diff HEAD^ $file
    fi
  done
      
@@ -29,17 +31,19 @@ changed_versions=()
  do
    if [[ " ${global[@]} " =~ " $folder " ]]; then
      echo "Changes detected in a global directory --> Building all components"
-     changed_services=`find . -maxdepth 1 -type d -name '*service*' -not -path '.' | sed 's|./||'`
-     echo "List of microservices: "$changed_services
+     changed_services=`find . -type f -name 'VERSION' | sed 's|./||'`
+     echo "${changed_services[@]}" > release_candidates.txt
      break
-   fi
- for name in $changed_versions:
- do
-  changed_services+=($(echo $name | cut -d "/" -f 1))
+   else
+     for name in $changed_versions:
+     do
+     changed_services+=($(echo $name | cut -d "/" -f 1))
+     done
+    fi
  done
- done
-
- echo "${changed_versions[@]}"  
+ 
+ echo "----------------------------------------------"
+ echo "Building the following components: ""${changed_services[@]}" 
 
 }
 
