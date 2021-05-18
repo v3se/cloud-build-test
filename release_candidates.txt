@@ -1,0 +1,4 @@
+mock-service-3/app/VERSION
+mock-service-4/app/VERSION
+mock-service-1/app/VERSION
+mock-service-2/app/VERSION

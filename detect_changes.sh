@@ -1,8 +1,7 @@
 #!/bin/bash -e
 
 detect_changed_services() {
-
- global=()
+ global=(common) # Add shared dependency directories here
  echo "----------------------------------------------"
  echo "Checking changed files for this commit"
 
@@ -43,7 +42,8 @@ changed_versions=()
  done
  
  echo "----------------------------------------------"
- echo "Building the following components: ""${changed_services[@]}" 
+ echo "Building the following components: "
+ echo """${changed_services[@]}" 
 
 }
 
