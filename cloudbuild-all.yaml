@@ -1,0 +1,29 @@
+# Test
+steps:
+- id: 'Build mock-service-1'
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-1
+  - --cache=true
+  - --dockerfile=/workspace/mock-service-1/app/Dockerfile
+- id: 'Build mock-service-2'
+  waitFor: ['-']
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-2
+  - --cache=true
+  - --dockerfile=/workspace/mock-service-2/app/Dockerfile
+- id: 'Build mock-service-3'
+  waitFor: ['-']
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-3
+  - --cache=true
+  - --dockerfile=/workspace/mock-service-3/app/Dockerfile
+- id: 'Build mock-service-4'
+  waitFor: ['-']
+  name: 'gcr.io/kaniko-project/executor:latest'
+  args:
+  - --destination=gcr.io/$PROJECT_ID/mock-service-4
+  - --cache=true
+  - --dockerfile=/workspace/mock-service-4/app/Dockerfile
