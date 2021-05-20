@@ -47,7 +47,7 @@ done
 
 if [ ${#changed_services[@]} -eq 0 ]; then
     echo "Nothing to build..."
-    exit 0
+    exit 1
 else
  echo "----------------------------------------------"
  echo "${changed_services[*]}" > release_candidates.txt
