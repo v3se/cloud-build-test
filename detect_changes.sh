@@ -3,7 +3,7 @@ IFS='
 '
 echo $1
 detect_changed_services() {
- echo $COMMIT_SHA
+ cd /workspace
  global=(common) # Add shared dependency directories here
  echo "----------------------------------------------"
  echo "Checking changed files for this commit"
