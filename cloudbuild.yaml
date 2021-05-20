@@ -1,8 +1,9 @@
 # Test
 steps:
-- name: 'bash'
+- name: 'gcr.io/cloud-builders/git'
   id: 'Detect changed services'
-  args: ['./detect_changes.sh']
+  entrypoint: "bash"
+  args: ["-c" ,'./detect_changes.sh']
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
