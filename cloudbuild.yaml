@@ -2,7 +2,7 @@
 steps:
 - name: 'bash'
   id: 'Detect changed services'
-  args: ['./detect_changes.']
+  args: ['./detect_changes.sh']
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
