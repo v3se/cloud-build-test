@@ -1,6 +1,7 @@
 set -e
 IFS='
 '
+COMMIT_SHA=$1
 
 detect_changed_services() {
  global=(common) # Add shared dependency directories here
