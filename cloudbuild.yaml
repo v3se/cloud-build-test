@@ -8,7 +8,7 @@ steps:
   args: ["-c" ,'./detect_changes.sh']
   env:
   - 'COMMIT_SHA=$COMMIT_SHA'
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   entrypoint: 'bash'
   args:
     - '-c'
