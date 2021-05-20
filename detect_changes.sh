@@ -1,13 +1,12 @@
 set -e
 IFS='
 '
-echo $1
 detect_changed_services() {
  cd /workspace
  git checkout master
  global=(common) # Add shared dependency directories here
  echo "----------------------------------------------"
- echo "Checking changed files for this commit"
+ echo "Checking changed files for this commit: $COMMIT_SHA"
 
  # get a list of all the changed folders only
  changed_folders=`git diff --name-only $COMMIT_SHA^ $COMMIT_SHA | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq`
