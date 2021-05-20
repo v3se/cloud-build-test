@@ -8,8 +8,8 @@ detect_changed_services() {
  echo "Checking changed files for this commit"
 
  # get a list of all the changed folders only
- changed_folders=`git diff --name-only HEAD^ HEAD | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq`
- changed_files=`git diff --name-only HEAD^ HEAD`
+ changed_folders=`git diff --name-only $COMMIT_SHA^ $COMMIT_SHA | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq`
+ changed_files=`git diff --name-only $COMMIT_SHA^ $COMMIT_SHA`
  echo "Changed directories: "$changed_folders
  echo "Changed files: "$changed_files
 
