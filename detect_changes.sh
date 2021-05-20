@@ -4,7 +4,7 @@ IFS='
 echo $1
 detect_changed_services() {
  cd /workspace
- git checkout main
+ git checkout master
  global=(common) # Add shared dependency directories here
  echo "----------------------------------------------"
  echo "Checking changed files for this commit"
