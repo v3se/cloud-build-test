@@ -1,8 +1,7 @@
 set -e
 IFS='
 '
-COMMIT_SHA=$1
-
+echo $1
 detect_changed_services() {
  echo $COMMIT_SHA
  global=(common) # Add shared dependency directories here
