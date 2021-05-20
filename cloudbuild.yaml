@@ -1,8 +1,21 @@
 # Test
 steps:
-- id: 'Build image'
-  name: 'gcr.io/kaniko-project/executor:latest'
+- name: 'bash'
+  id: 'Detect changed services'
+  args: ['./detect_changes.']
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
   args:
-  - --destination=gcr.io/$PROJECT_ID/mock-service-1
-  - --cache=true
-  - --dockerfile=/workspace/$_SERVICE_NAME/app/Dockerfile
+    - '-c'
+    - |
+      while IFS= read -r release_candidate; do
+        docker build -t gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev) -f $release_candidate .
+      done < release_candidates.txt
+
+
+# - id: 'Build image'
+#   name: 'gcr.io/kaniko-project/executor:latest'
+#   args:
+#   - --destination=gcr.io/$PROJECT_ID/mock-service-1
+#   - --cache=true
+#   - --dockerfile=/workspace/$_SERVICE_NAME/app/Dockerfile

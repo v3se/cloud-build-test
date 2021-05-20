@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+IFS='
+'
+
 detect_changed_services() {
  global=(common) # Add shared dependency directories here
  echo "----------------------------------------------"
@@ -9,7 +12,7 @@ detect_changed_services() {
  changed_folders=`git diff --name-only HEAD^ HEAD | grep / | awk 'BEGIN {FS="/"} {print $1}' | uniq`
  changed_files=`git diff --name-only HEAD^ HEAD`
  echo "Changed directories: "$changed_folders
- echo "Changed files": $changed_files
+ echo "Changed files: "$changed_files
 
 changed_services=()
 changed_versions=()
@@ -30,20 +33,21 @@ changed_versions=()
  do
    if [[ " ${global[@]} " =~ " $folder " ]]; then
      echo "Changes detected in a global directory --> Building all components"
-     changed_services=`find . -type f -name 'VERSION' | sed 's|./||'`
+     changed_services=`find . -type f -name 'VERSION' | sed 's|./||' | sed 's/VERSION/Dockerfile/g'`
      echo "${changed_services[@]}" > release_candidates.txt
      break
    else
-     for name in $changed_versions:
+     for name in $changed_versions
      do
-     changed_services+=($(echo $name | cut -d "/" -f 1))
+     changed_services+=($(echo $name | sed 's/VERSION/Dockerfile/g'))
      done
     fi
  done
  
  echo "----------------------------------------------"
+ echo "${changed_services[*]}" > release_candidates.txt
  echo "Building the following components: "
- echo """${changed_services[@]}" 
+ echo """${changed_services[*]}" 
 
 }
 
