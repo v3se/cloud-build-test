@@ -42,7 +42,7 @@ changed_versions=()
  done
 for name in "${changed_versions[@]}"
 do
-changed_services+=($(echo $name | sed 's/VERSION/Dockerfile/g'))
+changed_services+=($(echo $name | sed 's/VERSION//g'))
 done
 
 if [ ${#changed_services[@]} -eq 0 ]; then

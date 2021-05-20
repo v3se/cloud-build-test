@@ -15,7 +15,7 @@ steps:
     - |
       gcloud config set builds/use_kaniko True
       while IFS= read -r release_candidate; do
-        gcloud builds submit /workspace/$release_candidate --tag gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev)
+        gcloud builds submit --tag gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev) $release_candidate
       done < release_candidates.txt
 
 # - name: 'gcr.io/cloud-builders/docker'
