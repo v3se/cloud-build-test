@@ -1,5 +1,8 @@
 # Test
 steps:
+- id: "Checkout to proper branch"
+  name: "gcr.io/cloud-builders/git"
+  args: ["checkout", "main"]
 - name: 'gcr.io/cloud-builders/git'
   id: 'Detect changed services'
   entrypoint: "bash"
