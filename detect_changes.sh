@@ -42,11 +42,10 @@ changed_versions=()
  done
 for name in "${changed_versions[@]}"
 do
-echo jes $name | sed 's/VERSION/Dockerfile/g'
 changed_services+=($(echo $name | sed 's/VERSION/Dockerfile/g'))
 done
 
-if [[ ${changed_services[@]} -eq 0 ]]; then
+if [ ${#changed_services[@]} -eq 0 ]; then
     echo "Nothing to build..."
     exit 0
 else
