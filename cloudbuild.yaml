@@ -3,7 +3,9 @@ steps:
 - name: 'gcr.io/cloud-builders/git'
   id: 'Detect changed services'
   entrypoint: "bash"
-  args: ["-c" ,'./detect_changes.sh', $COMMIT_SHA]
+  args: ["-c" ,'./detect_changes.sh']
+  env:
+  - 'COMMIT_SHA=$COMMIT_SHA'
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args:
