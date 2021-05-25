@@ -8,24 +8,26 @@ steps:
   args: ["-c" ,'./detect_changes.sh']
   env:
   - 'COMMIT_SHA=$COMMIT_SHA'
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      gcloud config set builds/use_kaniko True
-      while IFS= read -r release_candidate; do
-        gcloud builds submit $release_candidate --tag gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev)
-      done < release_candidates.txt
-
-# - name: 'gcr.io/cloud-builders/docker'
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
 #   entrypoint: 'bash'
 #   args:
 #     - '-c'
 #     - |
+#       gcloud config set builds/use_kaniko True
 #       while IFS= read -r release_candidate; do
-#         docker build -t gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev) -f $release_candidate .
+#         gcloud builds submit $release_candidate --tag gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev)
 #       done < release_candidates.txt
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build changed services'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      while IFS= read -r release_candidate; do
+        echo 'Building: ' $(echo $release_candidate | rev | cut -d "/" -f2 | rev) 
+        docker build -t gcr.io/$PROJECT_ID/$(echo $release_candidate | rev | cut -d "/" -f2 | rev) -f $release_candidate .
+      done < release_candidates.txt
 
 
 # - id: 'Build image'
